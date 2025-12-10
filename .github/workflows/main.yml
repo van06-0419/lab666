@@ -1,0 +1,104 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout代码
+      uses: actions/checkout@v3
+    
+    - name: 安装依赖
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake g++ make
+    
+    - name: 配置CMake
+      run: |
+        mkdir build
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Release
+    
+    - name: 编译
+      run: |
+        cd build
+        make -j$(nproc)
+    
+    - name: 运行程序
+      run: |
+        cd build/bin
+        ./VectorEditor
+    
+    - name: 上传构建产物
+      uses: actions/upload-artifact@v3
+      with:
+        name: vector-editor-linux
+        path: build/bin/VectorEditor
+
+  build-windows:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout代码
+      uses: actions/checkout@v3
+    
+    - name: 配置CMake
+      run: |
+        mkdir build
+        cd build
+        cmake .. -G "Visual Studio 17 2022" -A x64
+    
+    - name: 编译
+      run: |
+        cd build
+        cmake --build . --config Release
+    
+    - name: 运行程序
+      run: |
+        cd build\bin\Release
+        .\VectorEditor.exe
+    
+    - name: 上传构建产物
+      uses: actions/upload-artifact@v3
+      with:
+        name: vector-editor-windows
+        path: build/bin/Release/VectorEditor.exe
+
+  build-macos:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout代码
+      uses: actions/checkout@v3
+    
+    - name: 安装依赖
+      run: |
+        brew install cmake
+    
+    - name: 配置CMake
+      run: |
+        mkdir build
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Release
+    
+    - name: 编译
+      run: |
+        cd build
+        make -j$(sysctl -n hw.ncpu)
+    
+    - name: 运行程序
+      run: |
+        cd build/bin
+        ./VectorEditor
+    
+    - name: 上传构建产物
+      uses: actions/upload-artifact@v3
+      with:
+        name: vector-editor-macos
+        path: build/bin/VectorEditor
