@@ -8,14 +8,14 @@ void EditorController::createNewDocument() {
 }
 
 void EditorController::importDocument(const std::string& path) {
-    std::cout << "Importing document from file: " << path << std::endl;
+    std::cout << "Импорт документа из файла: " << path << std::endl;
     currentDoc = std::make_unique<Document>(nextDocId++);
 }
 
 void EditorController::exportDocument(const std::string& path) {
     if (currentDoc) {
-        std::cout << "Exporting document #" << currentDoc->getId()
-                  << " to file: " << path << std::endl;
+        std::cout << "Экспорт документа #" << currentDoc->getId()
+                  << " в файл: " << path << std::endl;
     }
 }
 
