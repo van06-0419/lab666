@@ -12,7 +12,7 @@ jobs:
     
     steps:
     - name: Checkout代码
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     
     - name: 安装依赖
       run: |
@@ -32,21 +32,20 @@ jobs:
     
     - name: 运行程序
       run: |
-        cd build/bin
-        ./VectorEditor
+        ./build/VectorEditor
     
     - name: 上传构建产物
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: vector-editor-linux
-        path: build/bin/VectorEditor
+        path: build/VectorEditor
 
   build-windows:
     runs-on: windows-latest
     
     steps:
     - name: Checkout代码
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     
     - name: 配置CMake
       run: |
@@ -61,44 +60,10 @@ jobs:
     
     - name: 运行程序
       run: |
-        cd build\bin\Release
-        .\VectorEditor.exe
+        .\build\Release\VectorEditor.exe
     
     - name: 上传构建产物
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: vector-editor-windows
-        path: build/bin/Release/VectorEditor.exe
-
-  build-macos:
-    runs-on: macos-latest
-    
-    steps:
-    - name: Checkout代码
-      uses: actions/checkout@v3
-    
-    - name: 安装依赖
-      run: |
-        brew install cmake
-    
-    - name: 配置CMake
-      run: |
-        mkdir build
-        cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Release
-    
-    - name: 编译
-      run: |
-        cd build
-        make -j$(sysctl -n hw.ncpu)
-    
-    - name: 运行程序
-      run: |
-        cd build/bin
-        ./VectorEditor
-    
-    - name: 上传构建产物
-      uses: actions/upload-artifact@v3
-      with:
-        name: vector-editor-macos
-        path: build/bin/VectorEditor
+        path: build/Release/VectorEditor.exe
