@@ -3,30 +3,30 @@
 #include <memory>
 
 int main() {
-    std::cout << "=== 图形编辑器架构演示 ===" << std::endl;
+    std::cout << "=== Демонстрация архитектуры графического редактора ===" << std::endl;
     
-    // 创建MVC组件
+    // Создание компонентов MVC
     auto controller = std::make_shared<EditorController>();
     auto view = std::make_unique<EditorView>(controller);
     
-    // 演示功能1: 新建文档
+    // Демонстрация функции 1: Создание нового документа
     view->onNewDocument();
     
-    // 演示功能2: 创建图形
+    // Демонстрация функции 2: Создание фигур
     view->onCreateShape("rectangle");
     view->onCreateShape("circle");
     view->onCreateShape("rectangle");
     
-    // 演示功能3: 删除图形
+    // Демонстрация функции 3: Удаление фигуры
     view->onDeleteShape(2);
     
-    // 演示功能4: 导出文档
+    // Демонстрация функции 4: Экспорт документа
     view->onExport("output.svg");
     
-    // 演示功能5: 从文件导入
+    // Демонстрация функции 5: Импорт документа из файла
     view->onImport("input.svg");
     view->onCreateShape("circle");
     
-    std::cout << "\n=== 演示完成 ===" << std::endl;
+    std::cout << "\n=== Демонстрация завершена ===" << std::endl;
     return 0;
 }
