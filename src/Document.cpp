@@ -3,12 +3,12 @@
 #include <algorithm>
 
 Document::Document(int docId) : id(docId) {
-    std::cout << "Created document #" << id << std::endl;
+    std::cout << "Создан документ #" << id << std::endl;
 }
 
 void Document::addShape(std::unique_ptr<Shape> shape) {
-    std::cout << "Added shape #" << shape->getId() 
-              << " (" << shape->getType() << ") to document #" << id << std::endl;
+    std::cout << "Добавлена фигура #" << shape->getId() 
+              << " (" << shape->getType() << ") в документ #" << id << std::endl;
     shapes.push_back(std::move(shape));
 }
 
@@ -19,7 +19,7 @@ void Document::removeShape(int shapeId) {
         });
     
     if (it != shapes.end()) {
-        std::cout << "Removed shape #" << shapeId << " from document #" << id << std::endl;
+        std::cout << "Удалена фигура #" << shapeId << " из документа #" << id << std::endl;
         shapes.erase(it, shapes.end());
     }
 }
