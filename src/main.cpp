@@ -27,6 +27,7 @@ int main() {
     view->onImport("input.svg");
     view->onCreateShape("circle");
     
-    std::cout << "\n=== Демонстрация завершена ===" << std::endl;
+    std::cout << "\nзавершена!" << std::endl;
     return 0;
 }
+
